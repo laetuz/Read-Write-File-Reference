@@ -17,11 +17,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(binding.root)
     }
 
+    //Step 14:
     override fun onClick(v: View?) {
-        TODO("Not yet implemented")
+        when (v?.id) {
+            R.id.button_new -> newFile()
+            R.id.button_open -> showList()
+            R.id.button_save -> saveFile()
+        }
     }
 
-    //Step 13: Bind the button
+    //Step 15: Bind the button
     private fun binding(){
         binding.apply {
             buttonNew.setOnClickListener(this@MainActivity)
@@ -30,7 +35,14 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    //Step 10: Create showList function to show the list of the item
+    //Step 10: Create function to create new file
+    private fun newFile() {
+        binding.editTitle.setText("")
+        binding.editFile.setText("")
+        Toast.makeText(this, "Clearing file", Toast.LENGTH_SHORT).show()
+    }
+
+    //Step 11: Create showList function to show the list of the item
     private fun showList() {
         val items = fileList()
         val builder = AlertDialog.Builder(this)
@@ -40,7 +52,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         alert.show()
     }
 
-    //Step 11: Create loadData function to load the data
+    //Step 12: Create loadData function to load the data
     private fun loadData(title: String) {
         val fileModel = FileHelper.readFromFile(this, title)
         binding.editTitle.setText(fileModel.filename)
@@ -48,7 +60,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         Toast.makeText(this, "Loading " + fileModel.filename + " data", Toast.LENGTH_SHORT).show()
     }
 
-    //Step 12: Create saveFile function to save the file
+    //Step 13: Create saveFile function to save the file
     private fun saveFile() {
         when {
             binding.editTitle.text.toString().isEmpty() -> Toast.makeText(this, "Title harus diisi terlebih dahulu", Toast.LENGTH_SHORT).show()
