@@ -15,10 +15,11 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        //Step 15.1: Call the function
         binding()
     }
 
-    //Step 14:
+    //Step 14: Set onClick to the view
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.button_new -> newFile()
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     //Step 15: Bind the button
-    private fun binding(){
+    private fun binding() {
         binding.apply {
             buttonNew.setOnClickListener(this@MainActivity)
             buttonOpen.setOnClickListener(this@MainActivity)
@@ -64,8 +65,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     //Step 13: Create saveFile function to save the file
     private fun saveFile() {
         when {
-            binding.editTitle.text.toString().isEmpty() -> Toast.makeText(this, "Title harus diisi terlebih dahulu", Toast.LENGTH_SHORT).show()
-            binding.editFile.text.toString().isEmpty() -> Toast.makeText(this, "Kontent harus diisi terlebih dahulu", Toast.LENGTH_SHORT).show()
+            binding.editTitle.text.toString().isEmpty() -> Toast.makeText(
+                this,
+                "Title harus diisi terlebih dahulu",
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.editFile.text.toString().isEmpty() -> Toast.makeText(
+                this,
+                "Kontent harus diisi terlebih dahulu",
+                Toast.LENGTH_SHORT
+            ).show()
             else -> {
                 val title = binding.editTitle.text.toString()
                 val text = binding.editFile.text.toString()
@@ -73,7 +82,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 fileModel.filename = title
                 fileModel.data = text
                 FileHelper.writeToFile(fileModel, this)
-                Toast.makeText(this, "Saving " + fileModel.filename + " file", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Saving " + fileModel.filename + " file", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
